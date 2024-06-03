@@ -1,4 +1,4 @@
-package com.alice.rodexapp
+package com.alice.rodexapp.view.login
 
 import androidx.lifecycle.ViewModel
 

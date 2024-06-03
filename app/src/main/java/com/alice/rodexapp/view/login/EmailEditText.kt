@@ -1,4 +1,4 @@
-package com.alice.rodexapp
+package com.alice.rodexapp.view.login
 
 import android.content.Context
 import android.graphics.Canvas
