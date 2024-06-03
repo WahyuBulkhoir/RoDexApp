@@ -1,11 +1,11 @@
-package com.alice.rodexapp
+package com.alice.rodexapp.view.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -16,28 +16,25 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
+import com.alice.rodexapp.R
 
-class LoginActivity: AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class SignupActivity: AppCompatActivity() {
+    private lateinit var binding: ActivitySignupBinding
     private lateinit var myEditText: MyEditText
-    private lateinit var emailEditText: EmailEditText
 
-    private val viewModel by viewModels<LoginViewModel> {
+    private val viewModel by viewModels<SignupViewModel> {
         ViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupView()
         setupAction()
         playAnimation()
 
-        emailEditText = binding.emailEditText
         myEditText = binding.passwordEditText
     }
 
@@ -54,55 +51,43 @@ class LoginActivity: AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun setupAction() {
-        binding.loginButton.setOnClickListener {
+        binding.signupButton.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            viewModel.login(email, password).observe(this) { user ->
+            viewModel.register(name, email, password).observe(this) { user ->
                 when (user) {
-                    is ResultState.Success -> {
+                    is ResultState.Error -> {
                         binding.progressBar.visibility = View.INVISIBLE
-                        AlertDialog.Builder(this).apply {
-                            setTitle("Yeay!")
-                            setMessage("Anda berhasil login. Gasskeun upload ceritamu :D")
-                            setPositiveButton("Lanjut") { _, _ ->
-                                saveSession(
-                                    UserModel(
-                                        user.data.loginResult.token,
-                                        user.data.loginResult.name,
-                                        user.data.loginResult.userId,
-                                        true
-                                    )
-                                )
-                            }
-                            Log.e("login", user.data.loginResult.token)
-                            create()
-                            show()
-                        }
+                        val error = user.error
+                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
                     }
 
                     is ResultState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
 
-                    is ResultState.Error -> {
+                    is ResultState.Success -> {
                         binding.progressBar.visibility = View.INVISIBLE
-                        val error = user.error
-                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+                        AlertDialog.Builder(this).apply {
+                            setTitle("Yeay!")
+                            setMessage("Kamu berhasil mendaftar. Yuk jelajah dan unggah cerita kamu")
+                            setPositiveButton("Lanjut") { _, _ ->
+                                val intent = Intent(context, LoginActivity::class.java)
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                startActivity(intent)
+                                finish()
+                            }
+                            create()
+                            show()
+                        }
                     }
                 }
             }
-        }
-    }
-
-    private fun saveSession(session: UserModel) {
-        lifecycleScope.launch {
-            viewModel.saveSession(session)
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            ViewModelFactory.clearInstance()
-            startActivity(intent)
         }
     }
 
@@ -114,8 +99,10 @@ class LoginActivity: AppCompatActivity() {
         }.start()
 
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
-        val message =
-            ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
+        val nameTextView =
+            ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
+        val nameEditTextLayout =
+            ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val emailTextView =
             ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
         val emailEditTextLayout =
@@ -124,17 +111,19 @@ class LoginActivity: AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout =
             ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(100)
+        val signup = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(100)
+
 
         AnimatorSet().apply {
             playSequentially(
                 title,
-                message,
+                nameTextView,
+                nameEditTextLayout,
                 emailTextView,
                 emailEditTextLayout,
                 passwordTextView,
                 passwordEditTextLayout,
-                login
+                signup
             )
             startDelay = 100
         }.start()

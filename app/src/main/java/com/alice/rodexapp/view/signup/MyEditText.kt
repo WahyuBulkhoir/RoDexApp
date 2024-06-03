@@ -1,4 +1,4 @@
-package com.alice.rodexapp
+package com.alice.rodexapp.view.signup
 
 import android.content.Context
 import android.text.Editable
