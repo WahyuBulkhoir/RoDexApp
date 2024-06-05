@@ -17,6 +17,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.alice.rodexapp.R
+import com.alice.rodexapp.data.ResultState
+import com.alice.rodexapp.databinding.ActivitySignupBinding
+import com.alice.rodexapp.view.ViewModelFactory
+import com.alice.rodexapp.view.login.LoginActivity
 
 class SignupActivity: AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding

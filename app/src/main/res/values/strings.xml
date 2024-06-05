@@ -34,4 +34,9 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="retry">try again</string>
     <string name="welcome">Welcome Back</string>
+    <string name="rodex">RoDex</string>
+    <string name="welcome_to">Welcome To</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="a_l_i_c_e">A.L.I.C.E</string>
+    <string name="road">related to various kinds of road damage in Indonesia?</string>>
 </resources>

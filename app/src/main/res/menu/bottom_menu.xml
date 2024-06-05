@@ -3,24 +3,4 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:title="Home"
-        android:id="@+id/bottom_home"
-        android:icon="@drawable/ic_home"
-        app:showAsAction="never"
-        />
-
-    <item
-        android:title="Transaksi"
-        android:id="@+id/bottom_transaksi"
-        android:icon="@drawable/ic_transaksi"
-        app:showAsAction="never"
-        />
-
-    <item
-        android:title="Akun"
-        android:id="@+id/bottom_akun"
-        android:icon="@drawable/ic_akun"
-        app:showAsAction="never"
-        />
 </menu>

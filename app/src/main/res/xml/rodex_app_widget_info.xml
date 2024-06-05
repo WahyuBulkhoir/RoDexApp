@@ -6,7 +6,7 @@
     android:initialLayout="@layout/rodex_app_widget"
     android:minWidth="250dp"
     android:minHeight="110dp"
-    android:previewImage="@drawable/welcome"
+    android:previewImage="@drawable/anim_login"
 
     android:previewLayout="@layout/rodex_app_widget"
     android:targetCellWidth="4"

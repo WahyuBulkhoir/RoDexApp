@@ -50,6 +50,7 @@ dependencies {
 
     implementation(libs.androidx.activity.v190)
     implementation(libs.play.services.maps)
+    implementation(libs.mediation.test.suite)
     testImplementation(libs.junit.v412)
     val cameraxVersion = "1.3.3"
 
@@ -82,4 +83,9 @@ dependencies {
     testImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
     testImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
     testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.inline)}
+    testImplementation(libs.mockito.inline)
+
+    implementation(libs.play.services.ads)
+
+    implementation (libs.lottie)
+}

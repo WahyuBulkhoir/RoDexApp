@@ -1,6 +1,7 @@
 package com.alice.rodexapp.view.signup
 
 import androidx.lifecycle.ViewModel
+import com.alice.rodexapp.data.UserRepository
 
 class SignupViewModel(private val repository: UserRepository): ViewModel() {
 
