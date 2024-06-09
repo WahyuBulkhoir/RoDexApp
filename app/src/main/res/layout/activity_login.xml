@@ -7,7 +7,7 @@
     android:background="@drawable/back_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.login.LoginActivity">
+    tools:context=".activity.LoginActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -79,32 +79,23 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageTextView"
-        tools:alpha="100"
-        />
+        tools:alpha="100" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailEditTextLayout"
+    <com.alice.rodexapp.customview.EditTextEmail
+        android:id="@+id/ed_login_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
+        android:background="@color/light_gray"
+        android:drawableStart="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTextView"
-        app:startIconDrawable="@drawable/ic_email"
-        tools:alpha="100">
-
-        <com.alice.rodexapp.view.login.EmailEditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            tools:ignore="SpeakableTextPresentCheck"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+        tools:alpha="100"
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/passwordTextView"
@@ -116,41 +107,31 @@
         android:text="@string/password"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout"
-        tools:alpha="100"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_email"
+        tools:alpha="100" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordEditTextLayout"
+    <com.alice.rodexapp.customview.EditTextPassword
+        android:id="@+id/ed_login_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
+        android:background="@color/light_gray"
+        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:inputType="textPassword"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
-        app:startIconDrawable="@drawable/ic_lock"
-        tools:alpha="100">
-
-        <com.alice.rodexapp.view.signup.MyEditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            tools:ignore="SpeakableTextPresentCheck"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
+        tools:alpha="100"
+        android:padding="10dp"/>
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="60dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="88dp"
         android:layout_marginEnd="32dp"
@@ -160,7 +141,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_password"
         tools:alpha="100" />
 
     <androidx.constraintlayout.widget.Guideline

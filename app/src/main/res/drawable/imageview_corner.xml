@@ -1,0 +1,6 @@
+<!-- res/drawable/imageview_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="10dp"/> <!-- Sesuaikan radius sesuai keinginan -->
+    <solid android:color="@android:color/transparent"/>
+</shape>

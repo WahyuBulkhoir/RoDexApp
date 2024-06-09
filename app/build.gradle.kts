@@ -1,8 +1,7 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-parcelize")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -48,44 +47,65 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.activity.v190)
-    implementation(libs.play.services.maps)
-    implementation(libs.mediation.test.suite)
-    testImplementation(libs.junit.v412)
-    val cameraxVersion = "1.3.3"
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.paging.runtime.ktx)
+    implementation(libs.play.services.maps)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.datastore.preferences)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.activity.ktx)
 
+    //coroutines
+    implementation(libs.kotlinx.coroutines.core.v173)
+    implementation(libs.kotlinx.coroutines.android.v173)
+
+    //retrofit
+    implementation(libs.retrofit.v290)
+    implementation(libs.converter.gson.v290)
+    implementation(libs.logging.interceptor.v4110)
+
+    //datastore
+    implementation(libs.datastore.preferences)
+
+    //glide
+    implementation(libs.glide)
+
+    //cameraX
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
 
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.logging.interceptor)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    //maps
+    implementation(libs.play.services.maps.v1800)
+    implementation(libs.play.services.location.v1800)
 
-    implementation(libs.glide)
-    implementation(libs.androidx.exifinterface)
-    implementation(libs.androidx.paging.runtime.ktx)
+    //paging
+    implementation(libs.paging.runtime.ktx)
 
-    testImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
-    testImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+    //testing
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation (libs.mockito.android)
+    testImplementation (libs.robolectric)
 
-    implementation(libs.play.services.ads)
-
+    //lottie
     implementation (libs.lottie)
+
+    implementation (libs.logging.interceptor.v490)
 }

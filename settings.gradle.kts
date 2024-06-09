@@ -1,8 +1,15 @@
 pluginManagement {
     repositories {
-        google ()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
+        google()
     }
 }
 dependencyResolutionManagement {
@@ -13,6 +20,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "RoDex App"
+rootProject.name = "RoDexApp"
 include(":app")
  
