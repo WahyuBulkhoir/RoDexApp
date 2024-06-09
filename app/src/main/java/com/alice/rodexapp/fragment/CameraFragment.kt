@@ -2,20 +2,11 @@ package com.alice.rodexapp.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.OrientationEventListener
-import android.view.Surface
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.alice.rodexapp.R
 import com.alice.rodexapp.databinding.FragmentCameraBinding
@@ -38,20 +29,16 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         startCamera()
 
         binding.switchCamera.setOnClickListener {
-            cameraSelector =
-                if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
-                else CameraSelector.DEFAULT_BACK_CAMERA
+            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+                CameraSelector.DEFAULT_FRONT_CAMERA
+            else
+                CameraSelector.DEFAULT_BACK_CAMERA
             startCamera()
         }
+
         binding.captureImage.setOnClickListener { takePhoto() }
     }
 
@@ -60,16 +47,22 @@ class CameraFragment : Fragment() {
 
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+
+            // Preview configuration
             val preview = Preview.Builder()
                 .build()
                 .also {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
 
+            // Image capture configuration
             imageCapture = ImageCapture.Builder().build()
 
             try {
+                // Unbind all use cases before rebinding
                 cameraProvider.unbindAll()
+
+                // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
                     viewLifecycleOwner,
                     cameraSelector,
@@ -80,7 +73,7 @@ class CameraFragment : Fragment() {
             } catch (ex: Exception) {
                 Toast.makeText(
                     requireContext(),
-                    "Gagal membuka kamera",
+                    "Failed to open the camera",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -90,17 +83,21 @@ class CameraFragment : Fragment() {
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
 
+        // Create a temporary file for the photo
         val photoFile = createCustomTempFile(requireContext().applicationContext)
 
+        // Create output options for the image capture
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
+        // Take the picture
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val intent = Intent()
-                    intent.putExtra(EXTRA_CAMERA_IMAGE, output.savedUri.toString())
+                    val intent = Intent().apply {
+                        putExtra(EXTRA_CAMERA_IMAGE, output.savedUri.toString())
+                    }
                     activity?.setResult(CAMERA_RESULT, intent)
                     activity?.finish()
                 }
@@ -108,41 +105,12 @@ class CameraFragment : Fragment() {
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
                         requireContext(),
-                        "Gagal mengambil gambar",
+                        "Failed to capture image",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
         )
-    }
-
-    private val orientationEventListener by lazy {
-        object : OrientationEventListener(requireContext()) {
-            override fun onOrientationChanged(orientation: Int) {
-                if (orientation == ORIENTATION_UNKNOWN) {
-                    return
-                }
-
-                val rotation = when (orientation) {
-                    in 45 until 135 -> Surface.ROTATION_270
-                    in 135 until 225 -> Surface.ROTATION_180
-                    in 225 until 315 -> Surface.ROTATION_90
-                    else -> Surface.ROTATION_0
-                }
-
-                imageCapture?.targetRotation = rotation
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        orientationEventListener.enable()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        orientationEventListener.disable()
     }
 
     override fun onDestroyView() {

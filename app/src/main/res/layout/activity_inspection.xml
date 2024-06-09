@@ -121,7 +121,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/tvRoadSurface" />
 
             <Button
-                android:id="@+id/btnSubmit"
+                android:id="@+id/btnStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="65dp"

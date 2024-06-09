@@ -1,5 +1,6 @@
 package com.alice.rodexapp.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -17,6 +18,7 @@ class InspectionActivity : AppCompatActivity() {
     private lateinit var etRoadSurface: EditText
     private lateinit var btnSubmit: Button
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inspection)
@@ -27,7 +29,7 @@ class InspectionActivity : AppCompatActivity() {
         etRoadLength = findViewById(R.id.etRoadLength)
         etRoadSection = findViewById(R.id.etRoadSection)
         etRoadSurface = findViewById(R.id.etRoadSurface)
-        btnSubmit = findViewById(R.id.btnSubmit)
+        btnSubmit = findViewById(R.id.btnStart)
 
         // Set listener pada tombol submit
         btnSubmit.setOnClickListener {

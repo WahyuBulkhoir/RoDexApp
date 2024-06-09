@@ -14,13 +14,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/btnEnd" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container_map"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        <FrameLayout
+            android:id="@+id/fragment_container_map"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/stroke_cardview"
+            tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/green"
+        android:text="@string/end_inspection"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
