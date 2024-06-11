@@ -57,12 +57,17 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.report -> {
+                    val intent = Intent(this, ReportActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.searchBar -> {
                     hideActionBar()
                     loadFragment(SearchFragment())
                     true
                 }
-                R.id.report -> {
+                R.id.profile -> {
                     AlertDialog.Builder(this).apply {
                         setTitle(R.string.message)
                         setMessage(R.string.ask_logout)
@@ -96,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getStoriesData() {
-        val adapter = StoryAdapter(this)
+        val adapter = StoryAdapter()
         adapter.removeDivider(binding.rvStory)
 
         binding.rvStory.adapter = adapter.withLoadStateFooter(

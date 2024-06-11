@@ -58,6 +58,7 @@
             card_view:layout_constraintTop_toBottomOf="@+id/tv_road_type"
             card_view:layout_constraintVertical_bias="0.0"
             tools:text="@string/description"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

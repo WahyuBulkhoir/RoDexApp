@@ -21,11 +21,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RoDexApp"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.ReportDetailActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBRish13C2xKRxiaFfyyMZKR1tvmPsVoVY" />
 
+        <activity
+            android:name=".activity.DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ReportActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.InspectionStartActivity"
             android:exported="false" />
@@ -46,9 +55,6 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SplashActivity"

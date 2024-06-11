@@ -15,9 +15,13 @@ import com.alice.rodexapp.fragment.ReportPageFragment
 
 class InspectionStartActivity : AppCompatActivity() {
 
+    private lateinit var btnEnd: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inspection_start)
+
+        btnEnd = findViewById(R.id.btnEnd) // Initialize btnEnd before any other operation
 
         if (allPermissionsGranted()) {
             loadFragments()
@@ -25,7 +29,6 @@ class InspectionStartActivity : AppCompatActivity() {
             requestPermissions()
         }
 
-        val btnEnd: Button = findViewById(R.id.btnEnd)
         btnEnd.setOnClickListener {
             loadFragment(ReportPageFragment(), R.id.fragment_container_camera)
         }
