@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.alice.rodexapp.R
 import com.alice.rodexapp.activity.SearchActivity
+import com.alice.rodexapp.adapter.ReportAdapter
 import com.alice.rodexapp.adapter.StoryAdapter
 import com.alice.rodexapp.databinding.FragmentHomeBaseBinding
 import com.alice.rodexapp.model.UserModel

@@ -42,6 +42,5 @@ class ReportPageFragment : Fragment() {
         tvStatistic = view.findViewById(R.id.tvStatistic)
         tvNumberRoad = view.findViewById(R.id.tvNumberRoad)
         tvNumberType = view.findViewById(R.id.tvNumberType)
-
     }
 }

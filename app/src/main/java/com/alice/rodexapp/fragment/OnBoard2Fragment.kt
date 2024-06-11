@@ -1,5 +1,7 @@
 package com.alice.rodexapp.fragment
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

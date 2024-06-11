@@ -18,7 +18,7 @@ import com.alice.rodexapp.model.UserModel
 import com.alice.rodexapp.response.ListStoryItem
 import com.alice.rodexapp.utils.UserDiffCallBack
 
-class StoryAdapter(mainActivity: MainActivity) : PagingDataAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class StoryAdapter: PagingDataAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     private var storyList = ArrayList<UserModel>()
     private var onUserClickListener: OnUserClickListener? = null

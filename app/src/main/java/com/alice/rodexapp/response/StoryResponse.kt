@@ -27,6 +27,9 @@ data class ListStoryItem(
     @field:SerializedName("description")
     val description: String,
 
+    @field:SerializedName("description1")
+    val description1: String,
+
     @field:SerializedName("lon")
     val lon: Double,
 
