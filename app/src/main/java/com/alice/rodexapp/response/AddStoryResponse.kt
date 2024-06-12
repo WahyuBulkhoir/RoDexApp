@@ -2,9 +2,9 @@ package com.alice.rodexapp.response
 
 import com.google.gson.annotations.SerializedName
 
-class AddStoryResponse (@field:SerializedName("error")
+class AddRoadResponse (@field:SerializedName("error")
 val error: Boolean,
 
-@field:SerializedName("message")
+                       @field:SerializedName("message")
 val message: String
 )

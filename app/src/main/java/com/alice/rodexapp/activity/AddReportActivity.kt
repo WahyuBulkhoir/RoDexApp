@@ -18,21 +18,21 @@ import androidx.core.net.toUri
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.alice.rodexapp.R
-import com.alice.rodexapp.databinding.ActivityAddStoryBinding
+import com.alice.rodexapp.databinding.ActivityAddRoadBinding
 import com.alice.rodexapp.fragment.CameraFragment
 import com.alice.rodexapp.fragment.CameraFragment.Companion.CAMERA_RESULT
 import com.alice.rodexapp.utils.reduceFileImage
 import com.alice.rodexapp.utils.uriToFile
-import com.alice.rodexapp.viewmodel.AddStoryViewModel
+import com.alice.rodexapp.viewmodel.AddRoadViewModel
 import com.alice.rodexapp.viewmodel.ViewModelFactory
 import com.alice.rodexapp.utils.Result // Ensure this import is correct
 
-class AddStoryActivity : AppCompatActivity() {
-    private val viewModel by viewModels<AddStoryViewModel> {
+class AddRoadActivity : AppCompatActivity() {
+    private val viewModel by viewModels<AddRoadViewModel> {
         ViewModelFactory.getInstance(application)
     }
-    private lateinit var binding: ActivityAddStoryBinding
 
+    private lateinit var binding: ActivityAddRoadBinding
     private var currentImageUri: Uri? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -87,7 +87,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddStoryBinding.inflate(layoutInflater)
+        binding = ActivityAddRoadBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
