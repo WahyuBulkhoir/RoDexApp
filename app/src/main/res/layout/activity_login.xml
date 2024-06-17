@@ -27,10 +27,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/anim_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
-        app:layout_constraintVertical_bias="0.355" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -42,7 +41,7 @@
         android:alpha="0"
         android:text="@string/title_login_page"
         android:textColor="@color/green"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

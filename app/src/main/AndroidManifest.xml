@@ -22,13 +22,19 @@
         android:theme="@style/Theme.RoDexApp"
         tools:targetApi="31">
         <activity
-            android:name=".activity.ReportDetailActivity"
+            android:name=".activity.ReportPageActivity"
             android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBRish13C2xKRxiaFfyyMZKR1tvmPsVoVY" />
 
+        <activity
+            android:name=".activity.ProfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ReportDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.DetailActivity"
             android:exported="false" />
@@ -37,7 +43,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.InspectionStartActivity"
-            android:exported="false" />
+            android:configChanges="orientation|screenSize"
+            android:exported="true" />
         <activity
             android:name=".activity.InspectionActivity"
             android:exported="false" />
