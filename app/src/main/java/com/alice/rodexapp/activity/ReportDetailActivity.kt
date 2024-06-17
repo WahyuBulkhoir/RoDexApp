@@ -1,6 +1,8 @@
 package com.alice.rodexapp.activity
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -14,6 +16,7 @@ import com.alice.rodexapp.utils.Result
 import com.alice.rodexapp.viewmodel.DetailViewModel
 import com.alice.rodexapp.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.MaterialToolbar
 
 class ReportDetailActivity : AppCompatActivity() {
     private val viewModel by viewModels<DetailViewModel> {
@@ -29,6 +32,8 @@ class ReportDetailActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         setupAction()
+        setupToolbar()
+        playAnimation()
     }
 
     private fun setupAction() {
@@ -41,8 +46,8 @@ class ReportDetailActivity : AppCompatActivity() {
                     }
 
                     is Result.Success -> {
+                        binding.tvName.text = result.data.story.name
                         binding.tvDesc.text = result.data.story.description
-                        binding.tvDesc1.text = result.data.story.description
                         Glide.with(this)
                             .load(result.data.story.photoUrl)
                             .into(binding.ivPict)
@@ -58,6 +63,24 @@ class ReportDetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun setupToolbar() {
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 
     companion object {

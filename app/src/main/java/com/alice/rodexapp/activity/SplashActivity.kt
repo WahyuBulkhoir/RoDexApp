@@ -7,7 +7,7 @@ import com.alice.rodexapp.R
 import com.alice.rodexapp.fragment.OnBoard1Fragment
 
 class SplashActivity : AppCompatActivity() {
-    private val SPLASH_TIME_OUT: Long = 3000 // 3 seconds
+    private val SPLASH_TIME_OUT: Long = 6000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

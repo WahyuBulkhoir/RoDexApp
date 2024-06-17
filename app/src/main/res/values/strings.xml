@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RoDex App</string>
+    <string name="app_name"></string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="message_welcome_page">Want to make Indonesian Road better? RoDexApp the solution!</string>
@@ -23,7 +23,7 @@
     <string name="tmbl_language">Language Setting Button</string>
     <string name="tmbl_logout">Exit Button</string>
     <string name="empty_image_warning">Insert an Image First</string>
-    <string name="appwidget_text">STORY APP BANNER</string>
+    <string name="appwidget_text">RODEX APP BANNER</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <string name="empty_text">-</string>
@@ -41,8 +41,6 @@
     <string name="a_l_i_c_e">A.L.I.C.E</string>
     <string name="road">related to various kinds of road damage in Indonesia?</string>
     <string name="timeout">Timeout</string>
-    <string name="detail_story_like_count">100K</string>
-    <string name="detail_story_comment_count">12K</string>
     <string name="powered">Created By A.L.I.C.E</string>
     <string name="preview_image">Preview Image</string>
     <string name="location">location</string>
@@ -58,15 +56,15 @@
     <string name="message">Message</string>
     <string name="ask_logout">Logout?</string>
     <string name="empty_image">Please select the image first</string>
-    <string name="Storyy">MyStory A platform to share your unique experiences ,Your life, your words, Share your journey, inspire others.</string>
+    <string name="RoadDamage">Road Damage Detection is an application which serves to check road damage and provide a road damage report </string>
     <string name="maps"></string>
-    <string name="upload_a_story">upload_a_story</string>
-    <string name="image_story">Image Story</string>
+    <string name="upload_a_report">upload_a_report</string>
+    <string name="image_report">Image Report</string>
     <string name="road_type">Road Type</string>
-    <string name="home"></string>
-    <string name="profile"></string>
-    <string name="report"></string>
-    <string name="inspection"></string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="report">Report</string>
+    <string name="inspection">Inspection</string>
     <string name="inspector">Inspector Name :</string>
     <string name="road_name">Road Name :</string>
     <string name="road_length">Road Length :</string>
@@ -75,5 +73,7 @@
     <string name="start_inspection">Start Inspection</string>
     <string name="end_inspection">End Inspection</string>
     <string name="hello_blank_fragment">Blank Fragment</string>
-
+    <string name="gender">Gender</string>
+    <string name="genders">Male / Female</string>
+    <string name="sosmed">Social Media</string>
 </resources>

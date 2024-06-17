@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/retry"
-        android:backgroundTint="@color/light_steel_blue"
-        android:textColor="@color/black"/>
+        android:backgroundTint="@color/green"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

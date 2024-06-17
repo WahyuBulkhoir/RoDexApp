@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.alice.rodexapp.R
 import com.alice.rodexapp.activity.DetailActivity
-import com.alice.rodexapp.activity.MainActivity
 import com.alice.rodexapp.databinding.ListItemBinding
 import com.alice.rodexapp.model.UserModel
 import com.alice.rodexapp.response.ListStoryItem
@@ -35,6 +34,7 @@ class StoryAdapter: PagingDataAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(
         storyList.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
@@ -80,25 +80,24 @@ class StoryAdapter: PagingDataAdapter<ListStoryItem, StoryAdapter.MyViewHolder>(
     }
 
     fun removeDivider(recyclerView: RecyclerView) {
-        recyclerView.removeItemDecorationAt(0)
+        if (recyclerView.itemDecorationCount > 0) {
+            recyclerView.removeItemDecorationAt(0)
+        }
     }
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
             override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(
-                oldItem: ListStoryItem,
-                newItem: ListStoryItem
-            ): Boolean {
+            override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
                 return oldItem == newItem
             }
         }
     }
+
     interface OnUserClickListener {
         fun onUserClick(user: UserModel)
     }
 }
-

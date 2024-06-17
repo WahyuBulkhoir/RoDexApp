@@ -1,19 +1,20 @@
 package com.alice.rodexapp.activity
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.activity.viewModels
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alice.rodexapp.R
 import com.alice.rodexapp.adapter.LoadingStateAdapter
 import com.alice.rodexapp.adapter.StoryAdapter
 import com.alice.rodexapp.databinding.ActivityMainBinding
-import com.alice.rodexapp.fragment.SearchFragment
 import com.alice.rodexapp.viewmodel.MainViewModel
 import com.alice.rodexapp.viewmodel.ViewModelFactory
 
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(application)
     }
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         setupAction()
         showRecyclerList()
+        playAnimation()
     }
 
     private fun setupAction() {
@@ -44,12 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.searchBar.setOnClickListener {
-            // Replace current fragment with SearchFragment
-            replaceFragment(SearchFragment())
-        }
-
-        loadFragment(Fragment())
         binding.menu.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.inspection -> {
@@ -62,37 +58,22 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.searchBar -> {
-                    hideActionBar()
-                    loadFragment(SearchFragment())
-                    true
-                }
                 R.id.profile -> {
-                    AlertDialog.Builder(this).apply {
-                        setTitle(R.string.message)
-                        setMessage(R.string.ask_logout)
-                        setPositiveButton(R.string.yes) { _, _ ->
-                            viewModel.logout()
-                        }
-                        setNegativeButton(R.string.no) { _, _ -> }
-                        create()
-                        show()
-                    }
+                    val intent = Intent(this, ProfilActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
             }
         }
     }
+
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
     }
 
-    private fun hideActionBar() {
-        supportActionBar?.hide()
-    }
     private fun showRecyclerList() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvStory.layoutManager = layoutManager
@@ -114,11 +95,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun playAnimation() {
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+    }
+
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container, fragment)
             addToBackStack(null)
             commit()
+        }
+    }
+
+    fun toggleDrawer(view: View) {
+        if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.openDrawer(GravityCompat.START)
+        } else {
+            drawerLayout.closeDrawer(GravityCompat.START)
         }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
         <!-- Dasar -->
-        <color name="white">#D9D9D9</color>
+        <color name="white">#DAE9E4</color>
         <color name="black">#000000</color>
         <color name="red">#FF0000</color>
         <color name="green">#6FB13B</color>
