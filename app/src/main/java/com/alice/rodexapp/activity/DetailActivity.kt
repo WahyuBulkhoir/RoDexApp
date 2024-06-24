@@ -1,73 +1,53 @@
 package com.alice.rodexapp.activity
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.alice.rodexapp.R
 import com.bumptech.glide.Glide
 import com.alice.rodexapp.databinding.ActivityDetailBinding
-import com.alice.rodexapp.viewmodel.DetailViewModel
-import com.alice.rodexapp.viewmodel.ViewModelFactory
-import com.alice.rodexapp.utils.Result
-import com.google.android.material.appbar.MaterialToolbar
+import com.alice.rodexapp.viewmodel.AboutRoad
 
 class DetailActivity : AppCompatActivity() {
-    private val viewModel by viewModels<DetailViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+
     private lateinit var binding: ActivityDetailBinding
-
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        enableEdgeToEdge()
 
-        setupAction()
+        val imgPhoto: ImageView = findViewById(R.id.img_detail_photo)
+        val tvDetailName: TextView = findViewById(R.id.tv_detail_name)
+        val tvDetailDescription: TextView = findViewById(R.id.tv_detail_description)
+
+        val dataAboutRoad = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("key_aboutRoad", AboutRoad::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra("key_aboutRoad")
+        }
+
+        if (dataAboutRoad != null) {
+            tvDetailName.text = dataAboutRoad.name
+            tvDetailDescription.text = dataAboutRoad.description
+            Glide.with(applicationContext)
+                .load(dataAboutRoad.photo)
+                .into(imgPhoto)
+        }
         setupToolbar()
         playAnimation()
     }
     private fun setupToolbar() {
-        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-    }
-
-    private fun setupAction() {
-        val userId = intent.getStringExtra(USER_ID)
-
-        if (userId != null) {
-            viewModel.getDetailStory(userId).observe(this) { result ->
-                when (result) {
-                    is Result.Loading -> {
-                    }
-
-                    is Result.Success -> {
-                        binding.tvName.text = result.data.story.name
-                        binding.tvDesc.text = result.data.story.description
-                        Glide.with(this)
-                            .load(result.data.story.photoUrl)
-                            .into(binding.ivPict)
-                    }
-
-                    is Result.Error -> {
-                        Toast.makeText(
-                            application,
-                            "Error: ${result.error}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            }
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
@@ -77,9 +57,5 @@ class DetailActivity : AppCompatActivity() {
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
-    }
-
-    companion object {
-        const val USER_ID = "user id"
     }
 }

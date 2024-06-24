@@ -72,7 +72,6 @@ class InspectionStartActivity : AppCompatActivity() {
             if (permissions[Manifest.permission.CAMERA] == true) {
                 loadFragments()
             } else {
-                // Handle the case where the user denied the permission.
             }
         }
 

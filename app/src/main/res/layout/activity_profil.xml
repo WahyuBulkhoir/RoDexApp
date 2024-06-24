@@ -86,11 +86,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wahyu Nani"
+                        android:text="wahyu76558"
                         android:textAlignment="center"
                         android:textSize="20sp"
-
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="20dp"
@@ -160,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6C6C"
-                        android:text="Wahyu Nani"
+                        android:text="wahyu76558"
                         android:textSize="15sp"
                         android:layout_alignParentEnd="true"
                         android:textStyle="bold"/>
@@ -208,7 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6E6C6C"
-                        android:text="...gmail.com"
+                        android:text="wahyu76558@gmail.com"
                         android:textSize="15sp"
                         android:layout_alignParentEnd="true"
                         android:textStyle="bold"/>

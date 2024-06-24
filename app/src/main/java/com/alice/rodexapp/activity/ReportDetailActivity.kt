@@ -7,10 +7,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.alice.rodexapp.R
-import com.alice.rodexapp.databinding.ActivityDetailBinding
 import com.alice.rodexapp.databinding.ActivityReportDetailBinding
 import com.alice.rodexapp.utils.Result
 import com.alice.rodexapp.viewmodel.DetailViewModel

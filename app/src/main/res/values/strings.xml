@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Rodex App</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="message_welcome_page">Want to make Indonesian Road better? RoDexApp the solution!</string>
@@ -64,6 +64,7 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="report">Report</string>
+    <string name="officer">Officer Name :</string>
     <string name="inspection">Inspection</string>
     <string name="inspector">Inspector Name :</string>
     <string name="road_name">Road Name :</string>
@@ -71,9 +72,63 @@
     <string name="road_section">Road Section Width :</string>
     <string name="road_surface">Road Surface Type :</string>
     <string name="start_inspection">Start Inspection</string>
+    <string name="start_location">Location Start :</string>
     <string name="end_inspection">End Inspection</string>
     <string name="hello_blank_fragment">Blank Fragment</string>
     <string name="gender">Gender</string>
-    <string name="genders">Male / Female</string>
+    <string name="genders">Male</string>
     <string name="sosmed">Social Media</string>
+    <string name="analyze">Analyze</string>
+    <string name="result">Hasil Analisis</string>
+    <string name="image_classifier_failed">Image classifier failed to initialize. See error logs for details</string>
+    <string name="tflitevision_is_not_initialized_yet">TfLiteVision is not initialized yet</string>
+
+    <string-array name="data_name">
+        <item>Longitudinal Crack</item>
+        <item>Lateral Crack</item>
+        <item>Alligator Fatigue Crack</item>
+        <item>Pothole</item>
+    </string-array>
+
+    <string-array name="data_description">
+    <item>
+        Longitudinal cracks run parallel to the centerline (may be either in the wheel paths or outside). These types of cracks are caused by poor construction of the paving lane joint, shrinkage of the pavement surface as a result of low temperatures, or asphalt hardening and/or daily temperature cycling.
+        Severity Levels :
+        1. Low : Crack widths averaging less than 10 mm or filled cracks of any width in good condition.
+        2. Moderate: Cracks averaging between 10 mm and 75 mm or any crack width up to 75 mm plus adjacent low severity random cracking.
+        3. High : Cracks averaging over 75 mm or any crack with average width or less than 75 mm plus adjacent moderate to high severity random cracking.
+    </item>
+
+        <item>
+            Lateral Cracks are cracks which are predominately perpendicular to the pavement centerline.
+            Severity Levels :
+            1. Low : Any unsealed crack with a mean width up to 10 mm or a crack with good condition sealant plus an undetermined width.
+            2. Moderate: Any crack width averaging between 10 mm and 75 mm or any crack up to 75 mm and adjacent low severity random cracking.
+            3. High : Any crack width greater than 75 mm or any crack averaging less than 75 mm plus adjacent moderate to high severity random cracking.
+        </item>
+
+        <item>
+            Alligator/fatigue cracking are road damages that occurs in areas subjected to repeated traffic loadings. In the early stages, this distress can be a series of interconnected cracks, later developing into many-sided, and sharp-angled pieces, with the characteristic alligator pattern or chicken wire appearance. This alligator cracking is a major structural distress and normally occurs with rutting.
+            Severity Levels :
+            1. Low : An area with fine, longitudinal, parallel, hairline cracking with few connecting cracks. The cracks are not spalled or sealed and pumping is not evident.
+            2. Moderate: An area of interconnected cracks forming a complete pattern or network. The cracks may be lightly spalled or sealed and pumping is not evident.
+            3. High : An area of moderately or severely spalled interconnected cracks forming a complete pattern. The pieces may move under traffic, the cracks may be sealed, and pumping may be evident.
+        </item>
+
+        <item>
+            Potholes are depressions on the surface of the pavement that have a small diameter, usually less than 750 mm. Potholes generally have sharp corners and vertical upper wall. If the pothole is formed from a high-severity alligator crack, then the damage is recorded as a pothole, not as a alligator crack or weathering
+            Severity Levels :
+            1. Low : Any unsealed crack with a mean width up to 10 mm or a crack with good condition sealant plus an undetermined width.
+            2. Moderate: Any crack width averaging between 10 mm and 75 mm or any crack up to 75 mm and adjacent low severity random cracking.
+            3. High : Any crack width greater than 75 mm or any crack averaging less than 75 mm plus adjacent moderate to high severity random cracking.
+        </item>
+    </string-array>
+
+    <integer-array name="data_photo">
+        <item>@drawable/longitudinal_crack1a</item>
+        <item>@drawable/lateral_crack1b</item>
+        <item>@drawable/alligator_fatigue_crack2</item>
+        <item>@drawable/pothole3</item>
+    </integer-array>
+
 </resources>

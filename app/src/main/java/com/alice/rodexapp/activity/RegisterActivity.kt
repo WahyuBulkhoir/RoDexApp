@@ -10,13 +10,9 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import com.alice.rodexapp.utils.Result
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.alice.rodexapp.R
 import com.alice.rodexapp.databinding.ActivitySignupBinding
 import com.alice.rodexapp.viewmodel.RegisterViewModel
 import com.alice.rodexapp.viewmodel.ViewModelFactory

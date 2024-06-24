@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -17,7 +18,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
+        buildConfigField("String", "BASE_URL_RODEX", "\"https://api-rodex-y54qkwu5ua-et.a.run.app/\"")
+        buildConfigField("String", "BASE_URL_DICODING", "\"https://story-api.dicoding.dev/v1/\"")
     }
 
     buildTypes {
@@ -58,7 +60,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
-    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.support.v044)
     implementation(libs.tensorflow.lite.metadata)
     implementation(libs.tensorflow.lite.gpu)
     testImplementation(libs.junit)
@@ -85,7 +87,6 @@ dependencies {
     //glide
     implementation(libs.glide)
 
-    //cameraX
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
@@ -111,4 +112,6 @@ dependencies {
     //lottie
     implementation (libs.lottie)
     implementation (libs.logging.interceptor.v490)
+
+    implementation (libs.tensorflow.lite.task.vision)
 }

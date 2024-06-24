@@ -13,7 +13,6 @@ import com.alice.rodexapp.databinding.ActivityInspectionBinding
 import com.alice.rodexapp.utils.Result
 import com.alice.rodexapp.viewmodel.DetailViewModel
 import com.alice.rodexapp.viewmodel.ViewModelFactory
-import com.google.android.material.appbar.MaterialToolbar
 
 class InspectionActivity : AppCompatActivity() {
 
