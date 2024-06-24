@@ -9,13 +9,9 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.alice.rodexapp.R
 import com.alice.rodexapp.utils.Result
 import com.alice.rodexapp.databinding.ActivityLoginBinding
 import com.alice.rodexapp.model.UserModel
@@ -75,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
                                 binding.progressBar.visibility = View.GONE
                                 AlertDialog.Builder(this).apply {
                                     setTitle("Login ${result.data.message}!")
-                                    setMessage("Welcome ${result.data.loginResult.name} to StoryApp")
+                                    setMessage("Welcome ${result.data.loginResult.name} to RoDexApp")
                                     setPositiveButton("Next") { _, _ ->
                                         val intent = Intent(context, MainActivity::class.java)
                                         intent.flags =
