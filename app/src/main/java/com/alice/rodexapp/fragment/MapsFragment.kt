@@ -46,17 +46,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         ) { permissions ->
             when {
                 permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
-                    // Precise location access granted.
                     getMyLastLocation()
                 }
 
                 permissions[Manifest.permission.ACCESS_BACKGROUND_LOCATION] ?: false -> {
-                    // Only approximate location access granted.
                     getMyLastLocation()
                 }
 
                 else -> {
-                    // No access location granted.
                 }
             }
         }
@@ -148,7 +145,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                                 MarkerOptions()
                                     .position(latLng)
                                     .title(data.name)
-                                    .snippet(data.description)
+                                    .snippet(data.photoUrl)
                             )
                             boundsBuilder.include(latLng)
                         }
