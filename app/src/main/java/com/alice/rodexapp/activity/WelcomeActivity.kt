@@ -8,12 +8,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.alice.rodexapp.R
 import com.alice.rodexapp.databinding.ActivityWelcomeBinding
 import com.alice.rodexapp.viewmodel.MainViewModel
 import com.alice.rodexapp.viewmodel.ViewModelFactory
