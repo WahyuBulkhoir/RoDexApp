@@ -4,17 +4,15 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.activity.viewModels
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.alice.rodexapp.R
-import com.alice.rodexapp.adapter.LoadingStateAdapter
-import com.alice.rodexapp.adapter.StoryAdapter
+import com.alice.rodexapp.adapter.AboutRoadAdapter
 import com.alice.rodexapp.databinding.ActivityMainBinding
+import com.alice.rodexapp.viewmodel.AboutRoad
 import com.alice.rodexapp.viewmodel.MainViewModel
 import com.alice.rodexapp.viewmodel.ViewModelFactory
 
@@ -23,16 +21,22 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(application)
     }
     private lateinit var binding: ActivityMainBinding
-    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var rvAboutRoad: RecyclerView
+    private val list = ArrayList<AboutRoad>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupAction()
+        rvAboutRoad = findViewById(R.id.rvAboutRoad)
+        rvAboutRoad.setHasFixedSize(true)
+
+        list.addAll(getListAboutRoad())
         showRecyclerList()
+        setupAction()
         playAnimation()
     }
+
 
     private fun setupAction() {
         viewModel.getSession().observe(this) { session ->
@@ -40,9 +44,6 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, WelcomeActivity::class.java)
                 startActivity(intent)
                 finish()
-            } else {
-                binding.progressBar.visibility = View.GONE
-                getStoriesData()
             }
         }
 
@@ -68,31 +69,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.commit()
+
+    private fun getListAboutRoad(): ArrayList<AboutRoad> {
+        val dataName = resources.getStringArray(R.array.data_name)
+        val dataDescription = resources.getStringArray(R.array.data_description)
+        val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
+        val listAboutRoad = ArrayList<AboutRoad>()
+        for (i in dataName.indices) {
+            val aboutRoad = AboutRoad(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
+            listAboutRoad.add(aboutRoad)
+        }
+        return listAboutRoad
     }
 
     private fun showRecyclerList() {
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvStory.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvStory.addItemDecoration(itemDecoration)
+        rvAboutRoad.layoutManager = LinearLayoutManager(this)
+        val listAboutRoadAdapter = AboutRoadAdapter(list)
+        rvAboutRoad.adapter = listAboutRoadAdapter
+
+        listAboutRoadAdapter.setOnItemClickCallback(object : AboutRoadAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: AboutRoad) {
+                showSelectedAboutRoad(data)
+            }
+        })
     }
 
-    private fun getStoriesData() {
-        val adapter = StoryAdapter()
-        adapter.removeDivider(binding.rvStory)
-
-        binding.rvStory.adapter = adapter.withLoadStateFooter(
-            footer = LoadingStateAdapter {
-                adapter.retry()
-            }
-        )
-        viewModel.getStories().observe(this) {
-            adapter.submitData(lifecycle, it)
-        }
+    private fun showSelectedAboutRoad(aboutRoad: AboutRoad) {
+        Toast.makeText(this, "Kamu memilih " + aboutRoad.name, Toast.LENGTH_SHORT).show()
     }
 
     private fun playAnimation() {
@@ -103,19 +106,4 @@ class MainActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment_container, fragment)
-            addToBackStack(null)
-            commit()
-        }
-    }
-
-    fun toggleDrawer(view: View) {
-        if (!drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.openDrawer(GravityCompat.START)
-        } else {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
-    }
 }
