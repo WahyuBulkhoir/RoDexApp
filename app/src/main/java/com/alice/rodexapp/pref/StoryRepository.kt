@@ -9,7 +9,6 @@ import androidx.paging.liveData
 import com.google.gson.Gson
 import com.alice.rodexapp.config.ApiConfig
 import com.alice.rodexapp.config.ApiService
-import com.alice.rodexapp.pref.UserPreferences
 import com.alice.rodexapp.model.UserModel
 import com.alice.rodexapp.paging.StoryPaging
 import com.alice.rodexapp.response.DetailStoryResponse
