@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <!-- Toolbar -->
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -26,7 +25,7 @@
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:background="@drawable/anim_head"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:layout_gravity="top|center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -54,12 +53,13 @@
 
             <ImageView
                 android:id="@+id/ivPict"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_steel_blue"
-                android:contentDescription="@string/image_report"
-                android:scaleType="centerCrop"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/longitudinal_crack1a"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic"
                 tools:ignore="MissingConstraints" />
 
@@ -78,15 +78,15 @@
 
             <TextView
                 android:id="@+id/tvDesc"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:ellipsize="end"
-                android:gravity="center|fill"
-                android:maxLines="6"
-                android:paddingBottom="10dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="4dp"
+                android:padding="8dp"
+                android:text="@string/description"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvName"
                 tools:text="@tools:sample/lorem/random" />
