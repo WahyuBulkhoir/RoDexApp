@@ -2,54 +2,108 @@ package com.alice.rodexapp.helper
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.RectF
-import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.FileUtil
+import android.os.SystemClock
+import android.util.Log
+import android.view.Surface
+import androidx.camera.core.ImageProxy
+import com.alice.rodexapp.R
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.common.ops.CastOp
+import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
+import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.task.core.BaseOptions
+import org.tensorflow.lite.task.core.vision.ImageProcessingOptions
+import org.tensorflow.lite.task.vision.detector.Detection
+import org.tensorflow.lite.task.vision.detector.ObjectDetector
 
-class ObjectDetectorClassifier(context: Context) {
-    private val interpreter: Interpreter
-    private val inputSize = 640  // Ensure this matches the model's expected input size
+class ObjectDetectorHelper(
+    var threshold: Float = 0.5f,
+    var maxResults: Int = 3,
+    val modelName: String = "rdd_pro_40.tflite",
+    val context: Context,
+    val detectorListener: DetectorListener?
+) {
+    private var objectDetector: ObjectDetector? = null
 
     init {
-        val model = FileUtil.loadMappedFile(context, "rdd_pro_40.tflite")
-        interpreter = Interpreter(model)
+        setupObjectDetector()
     }
 
-    data class DetectionResult(val classId: Int, val score: Float, val boundingBox: RectF)
+    private fun setupObjectDetector() {
+        val optionsBuilder = ObjectDetector.ObjectDetectorOptions.builder()
+            .setScoreThreshold(threshold)
+            .setMaxResults(maxResults)
+        val baseOptionsBuilder = BaseOptions.builder()
+            .setNumThreads(4)
+        optionsBuilder.setBaseOptions(baseOptionsBuilder.build())
 
-    fun detect(bitmap: Bitmap): List<DetectionResult> {
-        // Resize bitmap to match model input size
-        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, inputSize, inputSize, true)
-
-        // Convert bitmap to TensorImage
-        val tensorImage = TensorImage.fromBitmap(resizedBitmap)
-
-        // Prepare input buffer
-        val inputBuffer = tensorImage.buffer.rewind()
-
-        // Prepare output buffer
-        val outputBuffer = Array(1) { Array(8400) { FloatArray(8) } }
-
-        // Run the model
-        interpreter.run(inputBuffer, outputBuffer)
-
-        // Process the output
-        val results = mutableListOf<DetectionResult>()
-        for (i in 0 until 8400) {
-            val detection = outputBuffer[0][i]
-            val score = detection[4]
-            if (score > 0.5) {
-                val classId = detection[5].toInt()
-                val boundingBox = RectF(
-                    detection[0] * bitmap.width / inputSize,  // Scale back to original image size
-                    detection[1] * bitmap.height / inputSize,
-                    detection[2] * bitmap.width / inputSize,
-                    detection[3] * bitmap.height / inputSize
-                )
-                results.add(DetectionResult(classId, score, boundingBox))
-            }
+        try {
+            objectDetector = ObjectDetector.createFromFileAndOptions(
+                context,
+                modelName,
+                optionsBuilder.build()
+            )
+        } catch (e: IllegalStateException) {
+            detectorListener?.onError(context.getString(R.string.image_classifier_failed))
+            Log.e(TAG, "Error creating ObjectDetector", e)
         }
-        return results
+    }
+
+    fun detectObjects(image: ImageProxy) {
+        if (objectDetector == null) {
+            setupObjectDetector()
+        }
+
+        val imageProcessor = ImageProcessor.Builder()
+            .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
+            .add(CastOp(DataType.UINT8))
+            .build()
+
+        val tensorImage = imageProcessor.process(TensorImage.fromBitmap(toBitmap(image)))
+
+        val imageProcessingOptions = ImageProcessingOptions.builder()
+            .setOrientation(getOrientationFromRotation(image.imageInfo.rotationDegrees))
+            .build()
+
+        var inferenceTime = SystemClock.uptimeMillis()
+        val results = objectDetector?.detect(tensorImage, imageProcessingOptions)
+        inferenceTime = SystemClock.uptimeMillis() - inferenceTime
+        detectorListener?.onResults(
+            results,
+            inferenceTime
+        )
+    }
+
+    private fun toBitmap(image: ImageProxy): Bitmap {
+        val bitmapBuffer = Bitmap.createBitmap(
+            image.width,
+            image.height,
+            Bitmap.Config.ARGB_8888
+        )
+        image.use { bitmapBuffer.copyPixelsFromBuffer(image.planes[0].buffer) }
+        image.close()
+        return bitmapBuffer
+    }
+
+    private fun getOrientationFromRotation(rotation: Int): ImageProcessingOptions.Orientation {
+        return when (rotation) {
+            Surface.ROTATION_270 -> ImageProcessingOptions.Orientation.BOTTOM_RIGHT
+            Surface.ROTATION_180 -> ImageProcessingOptions.Orientation.RIGHT_BOTTOM
+            Surface.ROTATION_90 -> ImageProcessingOptions.Orientation.TOP_LEFT
+            else -> ImageProcessingOptions.Orientation.RIGHT_TOP
+        }
+    }
+
+    interface DetectorListener {
+        fun onError(error: String)
+        fun onResults(
+            results: List<Detection>?,
+            inferenceTime: Long
+        )
+    }
+
+    companion object {
+        private const val TAG = "ObjectDetectorHelper"
     }
 }
